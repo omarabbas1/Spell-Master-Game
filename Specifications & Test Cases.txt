@@ -1,0 +1,187 @@
+Specifications:
+bool spellProvided(char *spells[], int spellsSize, char word[])
+requires:
+   - char* spells [] is the Array of Strings containing a list of words. The list should not be empty.
+   - int SpellsSize is the number of words in the list (size of the array)
+   - char* word is any word given by the client.
+effects:
+   - Returns True if the char*word provided by the user is found in the char*spells [] list.
+   - Returns false otherwise. (If the given word is not found in the list).
+
+Test Cases:
+- Try if the word exists in the spells array (1st, last or in the middle)
+- Try word not in the list
+- Try empty list
+- Try empty word
+- Try case insensitivity (between word and words in the list)
+- Try multiple occurences of the word in the list
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Specifications:
+bool spellAlreadyUsed(char *usedWords[], int spellsSize, char usedWord[])
+requires:
+   - char* usedWords [] is the Array of Strings containing a list of words used by the players. The Array of Strings should not be empty.
+   - int usedSize is the number of words in the list (size of the array)
+   - char* word is any word given by the client.
+
+effects:
+   - Returns True if the char*word provided by the user was used another time in the game.
+   - Returns false otherwise. (If the given word was not used before in the game).
+
+Test Cases:
+- Try an already used word
+- Try a non used word
+- Try an empty list (word or input spells)
+- Try case insensitivity (between word and list)
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Specifications:
+bool charMatching(char previousWord[], char currentWord[])
+requires:
+   - Given any Two strings (char *previousWord, char *currentWord).
+   - The order of parameters matters pass the previousWord with the last character being common with the first Character of currentWord.
+effects:
+   - Returns true if the last character of the previous word matches the first character of the current word.
+   - Returns false otherwise.
+
+Test Cases:
+- Try matching last char of prev word and first char of current word
+- Try non matching last char of prev word and first char of current word
+- Try empty current word or empty previous word
+- Try case insensitivity
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Specifications:
+bool runOut(char currentWord[], int Tally[])
+requires:
+   - Take a string char*currentWord
+   - An array of integers that counts the number of words starting with the alphabetical letters in a given list. (int Tally[])
+effects:
+   - Returns true if the list contains available starting letters mataching the lastLetter of the String char*currentWord.
+   - Returns false otherwise.
+
+Test Cases:
+- Try enough tally remaining in the array >=0
+- Try not enough tally remaining
+- Try empty word
+- Try case-insensitive between the words
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Specifications:
+char *finishGame(char *spells[], int spellsSize, char *usedWords[], char userWord[], bool BotTurn, int Tally[])
+requires: 
+   - Non-empty list (spell) and spellsSize greater than 0
+   - UsedWords can be empty if BotTurn is true
+   - Tally should include the number of occurrences of 1st letter in spells list
+effects:
+   - Returns a string that finishes the game directly in both ways (if the bot starts or it is the bot's turn but not at the start) 
+   - Returns NULL if no String is found that finishes the game directly
+
+Test Cases:
+- Try passing an empty usedWords list and true BotTurn
+- Try passing a nonempty usedWords list and false BotTurn
+- Try passing a Tally array with all 0s 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Specifications:
+bool wordAsess(char *badAivalableBotWords[], char goodAvailableWord[], int size)
+requires: 
+   - Non-empty list of words 
+   - Positive size
+effects:
+   - Returns true if the word is found in the list of strings and false otherwise
+
+Test Cases:
+- Try a word not found in the list
+- Try a word found in the list
+- Try passing an empty word
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Specifications:
+char *botMove(char *spells[], int spellsSize, char *usedWords[], char userWord[], int Tally[])
+requires:
+   - Non-empty list (spell) and spellsSize greater than 0
+   - Tally should include the number of occurrences of 1st letter in spells list
+
+effects: 
+   - Returns a word that can win directly for the bot
+   - If not available return the best possible move in the list (according to the rules) to defeat the other player
+
+Test Cases:
+- Try passing an empty list of usedWords
+- Try passing a Tally array with all 0's
+- Try passing an empty userWord 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Specifications:
+void ReadingFileIntoString(FILE *filePointer, char *spells[], size_t spellsLength, char size[], size_t sizeArray)
+requires:
+   - Nonempty string of spells 
+   - Size should be greater in length than spells array length (sizeArray > spellsLength)
+effects:
+   - Prints file did not open if the filepointer is null 
+   - Prints Done copying file into List when all the contents in the file is copied to the list
+
+Test Cases:
+- Try passing null filepointer
+- Try passing filepointer which isnt null and sizeArray greater than spellsLength
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Specifications:
+void PrintingList(char *spells[], size_t spellsSize)
+requires:
+   - Non-empty spells and spellsSize > 0
+effects:
+- Printed list each line has 5 words spaced by \t 
+
+Test Cases:
+- Try a list with size%5 == 0 words 
+- Try a list with size%5 != 0 words 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Specifications:
+bool Player1Turn(char player1[], char player2[])
+requires:
+   - Nothing
+effects:
+   - Randomly picks a player and prints they will start the game
+
+Test Cases:
+- Pass 2 strings multiple times to see if players are randomly picked 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Specifications:
+int GamePlay(int * indexPtr, char *usedWords[], int Tally[], bool player1Turn, char player1[], char player2[], char *spells[])
+requires:
+   - Nonempty spells list 
+   - Tally should include the number of occurrences of 1st letter in the spells list
+effects:
+   - Plays the game with the instructed rules till it finishes and returns the end value of player1turn
+
+Test Cases:
+- Try passing an empty usedwords and nonempty spells list
+- Try passing player1turn as true or false
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Specifications:
+void AnnouncingWinner(bool player1Turn, char *usedWords[], int index, char *spells[], char player1[], char player2[], int Tally[])
+requires:
+   - Nonempty spells list 
+   - Tally should include the number of occurrences of 1st letter in the spells list
+effects:
+   - Prints out the winner and the reason of why they won the game
+
+Test cases:
+- Try player1turn as false or true 
+- Try usedWords as an empty and non empty list
